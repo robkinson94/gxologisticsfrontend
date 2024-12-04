@@ -17,7 +17,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         return;
       }
       try {
-        await API.post("/api/token/verify/", { token });
+        await API.post("/token/verify/", { token });
         setIsAuthenticated(true);
       } catch (error) {
         localStorage.removeItem("access");

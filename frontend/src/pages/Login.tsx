@@ -11,7 +11,7 @@ const Login: React.FC = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const { data } = await API.post("/api/token/", {
+      const { data } = await API.post("/token/", {
         username: email,
         password: password,
       });
