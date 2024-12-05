@@ -11,12 +11,14 @@ import Teams from "./pages/Teams";
 import Metrics from "./pages/Metrics";
 import Records from "./pages/Records";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Register from "./pages/Registration";
 
 const App: React.FC = () => {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/dashboard"
           element={
