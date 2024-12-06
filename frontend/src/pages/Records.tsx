@@ -227,13 +227,6 @@ const Records: React.FC = () => {
 
   // Table Headers and Data
   const headers = ["ID", "Metric Name", "Team Name", "Value", "Timestamp"];
-  const data = records.map((record) => ({
-    ID: record.id,
-    "Metric Name": record.metric_name || "N/A",
-    "Team Name": record.team_name || "N/A",
-    Value: record.value,
-    Timestamp: new Date(record.timestamp).toLocaleString(),
-  }));
 
   return (
     <div>
