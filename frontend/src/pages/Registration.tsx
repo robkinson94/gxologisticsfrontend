@@ -128,10 +128,7 @@ const Register: React.FC = () => {
         </button>
 
         <p className="mt-6 text-center text-gray-600">
-          <Link
-            to="/register"
-            className="block py-2 hover:color-blue-600 rounded"
-          >
+          <Link to="/login" className="block py-2 hover:color-blue-600 rounded">
             Already have an account? Click here
           </Link>
         </p>
