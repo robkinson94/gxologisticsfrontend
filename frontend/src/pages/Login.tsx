@@ -24,13 +24,22 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white rounded shadow-md p-8">
-        <h2 className="text-2xl font-bold text-gray-800">Login</h2>
-        {error && <p className="mt-2 text-red-500">{error}</p>}
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+      <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+        <h2 className="text-3xl font-bold text-gray-800 text-center">
+          Welcome Back!
+        </h2>
+        <p className="mt-2 text-center text-gray-600">
+          Sign in to access your dashboard
+        </p>
+        {error && (
+          <p className="mt-4 text-center text-red-500 bg-red-100 p-2 rounded">
+            {error}
+          </p>
+        )}
         <form onSubmit={handleLogin} className="mt-6">
           <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700">
+            <label htmlFor="email" className="block text-gray-700 font-medium">
               Email
             </label>
             <input
@@ -38,12 +47,15 @@ const Login: React.FC = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 mt-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-4 py-2 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 focus:border-indigo-500"
               required
             />
           </div>
           <div className="mb-6">
-            <label htmlFor="password" className="block text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium"
+            >
               Password
             </label>
             <input
@@ -51,17 +63,26 @@ const Login: React.FC = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 mt-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+              className="w-full px-4 py-2 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 focus:border-indigo-500"
               required
             />
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-300"
+            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
           >
             Login
           </button>
         </form>
+        <p className="mt-6 text-center text-gray-600">
+          Don't have an account?{" "}
+          <a
+            href="/register"
+            className="text-indigo-600 font-medium hover:underline"
+          >
+            Register here
+          </a>
+        </p>
       </div>
     </div>
   );
