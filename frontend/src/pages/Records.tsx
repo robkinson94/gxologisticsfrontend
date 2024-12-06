@@ -9,7 +9,7 @@ interface Record {
   metric_name: string;
   team_name: string;
   value: number;
-  timestamp: string;
+  recorded_at: string;
 }
 
 interface Metric {
@@ -34,12 +34,12 @@ const Records: React.FC = () => {
     metric: string | number;
     team: string | number;
     value: string;
-    timestamp: string;
+    recorded_at: string;
   }>({
     metric: "",
     team: "",
     value: "",
-    timestamp: "",
+    recorded_at: "",
   });
 
   const [selectedMetricTarget, setSelectedMetricTarget] = useState<
@@ -173,7 +173,7 @@ const Records: React.FC = () => {
       }
     }
 
-    setNewRecord({ metric: "", team: "", value: "", timestamp: "" });
+    setNewRecord({ metric: "", team: "", value: "", recorded_at: "" });
     setSelectedMetricTarget(null);
   };
 
@@ -219,14 +219,14 @@ const Records: React.FC = () => {
       // Match team name to ID
       team: teams.find((team) => team.name === record.team_name)?.id || "",
       value: record.value.toString(),
-      timestamp: record.timestamp, // Keep timestamp as is
+      recorded_at: record.recorded_at, // Keep recorded_at as is
     });
     setIsModalOpen(true);
     setIsEditing(true);
   };
 
   // Table Headers and Data
-  const headers = ["ID", "Metric Name", "Team Name", "Value", "Timestamp"];
+  const headers = ["ID", "Metric Name", "Team Name", "Value", "recorded_at"];
 
   return (
     <div>
@@ -238,7 +238,7 @@ const Records: React.FC = () => {
           onClick={() => {
             setIsModalOpen(true);
             setIsEditing(false);
-            setNewRecord({ metric: "", team: "", value: "", timestamp: "" });
+            setNewRecord({ metric: "", team: "", value: "", recorded_at: "" });
           }}
           className="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
         >
@@ -277,7 +277,7 @@ const Records: React.FC = () => {
                   {record.value}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
-                  {new Date(record.timestamp).toLocaleString()}
+                  {new Date(record.recorded_at).toLocaleString()}
                 </td>
                 <td className="border border-gray-300 px-4 py-2">
                   <button
@@ -362,15 +362,15 @@ const Records: React.FC = () => {
             />
           </label>
           <label className="block mb-2">
-            Timestamp
+            recorded_at
             <input
               type="datetime-local"
-              value={newRecord.timestamp}
+              value={newRecord.recorded_at}
               onChange={(e) =>
-                setNewRecord({ ...newRecord, timestamp: e.target.value })
+                setNewRecord({ ...newRecord, recorded_at: e.target.value })
               }
               className="block w-full mb-4 p-2 border"
-              placeholder="Select timestamp"
+              placeholder="Select recorded_at"
               required
             />
           </label>
