@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
 
 const Register: React.FC = () => {
@@ -128,13 +128,12 @@ const Register: React.FC = () => {
         </button>
 
         <p className="mt-6 text-center text-gray-600">
-          Already have an account?{" "}
-          <a
-            href="/login"
-            className="text-blue-600 font-medium hover:underline"
+          <Link
+            to="/register"
+            className="block py-2 hover:color-blue-600 rounded"
           >
-            Login here
-          </a>
+            Already have an account? Click here
+          </Link>
         </p>
       </form>
     </div>

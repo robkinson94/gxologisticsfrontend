@@ -75,7 +75,10 @@ const Login: React.FC = () => {
           </button>
         </form>
         <p className="mt-6 text-center text-gray-600">
-          <Link to="/register" className="block py-2 hover:bg-blue-600 rounded">
+          <Link
+            to="/register"
+            className="block py-2 hover:color-blue-600 rounded"
+          >
             Don't have an account? Click here
           </Link>
         </p>
