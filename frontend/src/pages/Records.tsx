@@ -226,7 +226,7 @@ const Records: React.FC = () => {
   };
 
   // Table Headers and Data
-  const headers = ["ID", "Metric Name", "Team Name", "Value", "recorded_at"];
+  const headers = ["ID", "Metric Name", "Team Name", "Value", "recorded at"];
 
   return (
     <div>
@@ -238,7 +238,7 @@ const Records: React.FC = () => {
           onClick={() => {
             setIsModalOpen(true);
             setIsEditing(false);
-            setNewRecord({ metric: "", team: "", value: "", recorded_at: "" });
+            setNewRecord({ metric: "", team: "", value: "", recorded at: "" });
           }}
           className="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
         >
@@ -362,7 +362,7 @@ const Records: React.FC = () => {
             />
           </label>
           <label className="block mb-2">
-            recorded_at
+            recorded at
             <input
               type="datetime-local"
               value={newRecord.recorded_at}
@@ -370,7 +370,7 @@ const Records: React.FC = () => {
                 setNewRecord({ ...newRecord, recorded_at: e.target.value })
               }
               className="block w-full mb-4 p-2 border"
-              placeholder="Select recorded_at"
+              placeholder="Select recorded at"
               required
             />
           </label>
