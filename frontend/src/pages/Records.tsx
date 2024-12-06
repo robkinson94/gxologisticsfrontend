@@ -238,7 +238,7 @@ const Records: React.FC = () => {
           onClick={() => {
             setIsModalOpen(true);
             setIsEditing(false);
-            setNewRecord({ metric: "", team: "", value: "", recorded at: "" });
+            setNewRecord({ metric: "", team: "", value: "", recorded_at: "" });
           }}
           className="mb-4 bg-blue-500 text-white px-4 py-2 rounded"
         >
