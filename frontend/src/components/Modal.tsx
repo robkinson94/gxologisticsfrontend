@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({
   onSave,
   children,
 }) => {
-  const [formData, setFormData] = useState({});
+  const [formData] = useState({});
 
   const handleSave = () => {
     onSave(formData);
