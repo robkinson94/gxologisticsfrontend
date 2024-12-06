@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: 'https://gxologistics-metrics-tracker.onrender.com/api',
 });
 
 // Attach access token to requests
@@ -22,7 +22,7 @@ API.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem('refresh');
       try {
-        const { data } = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+        const { data } = await axios.post('https://gxologistics-metrics-tracker.onrender.com/api/token/refresh/', {
           refresh: refreshToken,
         });
         localStorage.setItem('access', data.access);
