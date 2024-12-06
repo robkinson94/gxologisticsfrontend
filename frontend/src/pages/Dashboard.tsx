@@ -153,7 +153,7 @@ const Summary: React.FC = () => {
                   fill="#8884d8"
                   label
                 >
-                  {summaryData.recordsByTeam.map((_entry, index) => (
+                  {summaryData.recordsByTeam.map((entry, index) => (
                     <Cell
                       key={`cell-${index}`}
                       fill={COLORS[index % COLORS.length]}
