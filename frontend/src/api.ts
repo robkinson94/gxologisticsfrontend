@@ -29,7 +29,7 @@ API.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${data.access}`;
         return axios(originalRequest);
       } catch (err) {
-        console.error('Refresh token failed', err);
+        console.error('Refresh token failed!', err);
       }
     }
     return Promise.reject(error);
