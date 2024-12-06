@@ -1,39 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Navigate } from "react-router-dom";
-import API from "../api";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const token = localStorage.getItem("access");
 
-  useEffect(() => {
-    const verifyToken = async () => {
-      const token = localStorage.getItem("access");
-      if (!token) {
-        setIsAuthenticated(false);
-        return;
-      }
-      try {
-        await API.post("/token/verify/", { token });
-        setIsAuthenticated(true);
-      } catch (error) {
-        localStorage.removeItem("access");
-        localStorage.removeItem("refresh");
-        setIsAuthenticated(false);
-      }
-    };
-    verifyToken();
-  }, []);
-
-  if (isAuthenticated === null) {
-    // Loading state while token is verified
-    return <div>Loading...</div>;
+  // Redirect to login if no token exists
+  if (!token) {
+    return <Navigate to="/login" />;
   }
 
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  // Render children if token exists
+  return <>{children}</>;
 };
 
 export default ProtectedRoute;
