@@ -12,6 +12,7 @@ import Metrics from "./pages/Metrics";
 import Records from "./pages/Records";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Registration";
+import EmailVerified from "./components/EmailVerfied";
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/email-verify" element={<EmailVerified />} />
         <Route
           path="/dashboard"
           element={
