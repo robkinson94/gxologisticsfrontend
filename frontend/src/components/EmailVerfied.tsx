@@ -17,7 +17,7 @@ const EmailVerified: React.FC = () => {
     const verifyEmail = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/verify-email/",
+          "https://gxologistics-metrics-tracker.onrender.com//api/verify-email/",
           {
             method: "POST",
             headers: {
