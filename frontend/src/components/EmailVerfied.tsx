@@ -58,7 +58,7 @@ const EmailVerified: React.FC = () => {
               Your email has been verified!
             </h2>
             <p className="text-gray-700 mb-6">
-              You can now login to your account.
+              You can now login to your account!.
             </p>
             <button
               onClick={handleRedirect}
