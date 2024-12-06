@@ -17,7 +17,7 @@ const EmailVerified: React.FC = () => {
     const verifyEmail = async () => {
       try {
         const response = await fetch(
-          "https://gxologistics-metrics-tracker.onrender.com//api/verify-email/",
+          "https://gxologistics-metrics-tracker.onrender.com/api/verify-email/",
           {
             method: "POST",
             headers: {
