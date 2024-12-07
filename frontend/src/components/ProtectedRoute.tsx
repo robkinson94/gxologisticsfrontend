@@ -1,43 +1,49 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 
-// Define the type for JWT payload
 interface JwtPayload {
-  exp?: number; // Expiration time as UNIX timestamp
-  [key: string]: any; // Any additional claims in the token
+  exp: number; // Expiration time
+  [key: string]: any; // Other possible claims
 }
 
-// Props for the ProtectedRoute component
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
+const decodeToken = (token: string): JwtPayload | null => {
+  try {
+    const base64Payload = token.split(".")[1];
+    const payload = JSON.parse(atob(base64Payload)); // Decode base64 string
+    return payload as JwtPayload;
+  } catch (error) {
+    console.error("Failed to decode token:", error);
+    return null;
+  }
+};
+
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const token = localStorage.getItem("access");
 
-  // If no token exists, redirect to login
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+  if (token) {
+    const decodedToken = decodeToken(token);
 
-  try {
-    // Decode the token
-    const decodedToken = jwtDecode<JwtPayload>(token);
+    if (decodedToken) {
+      const currentTime = Math.floor(Date.now() / 1000);
 
-    // Check if the token has expired
-    if (decodedToken.exp && decodedToken.exp * 1000 < Date.now()) {
-      console.warn("Token has expired.");
-      localStorage.removeItem("access"); // Remove expired token
+      // Check if the token is expired
+      if (decodedToken.exp && decodedToken.exp < currentTime) {
+        console.warn("Token has expired.");
+        localStorage.removeItem("access");
+        return <Navigate to="/login" />;
+      }
+    } else {
+      console.warn("Invalid token.");
       return <Navigate to="/login" />;
     }
-  } catch (error) {
-    console.error("Invalid token:", error);
-    localStorage.removeItem("access"); // Remove invalid token
+  } else {
     return <Navigate to="/login" />;
   }
 
-  // Token is valid and not expired, render children
   return <>{children}</>;
 };
 

@@ -5,7 +5,6 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Teams from "./pages/Teams";
@@ -21,17 +20,26 @@ interface JwtPayload {
   [key: string]: any; // Any additional claims in the token
 }
 
-// Helper function to check if the user is logged in
+// Helper function to decode token and check login status
+const decodeToken = (token: string): JwtPayload | null => {
+  try {
+    const base64Payload = token.split(".")[1];
+    const payload = JSON.parse(atob(base64Payload)); // Decode base64 string
+    return payload as JwtPayload;
+  } catch {
+    return null; // Invalid token
+  }
+};
+
 const isUserLoggedIn = (): boolean => {
   const token = localStorage.getItem("access");
   if (!token) return false;
 
-  try {
-    const decodedToken = jwtDecode<JwtPayload>(token);
-    return decodedToken.exp ? decodedToken.exp * 1000 > Date.now() : true;
-  } catch {
-    return false; // Invalid token
-  }
+  const decodedToken = decodeToken(token);
+  if (!decodedToken) return false;
+
+  // Check if token is expired
+  return decodedToken.exp ? decodedToken.exp * 1000 > Date.now() : true;
 };
 
 const App: React.FC = () => {
