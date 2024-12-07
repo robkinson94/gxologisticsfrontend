@@ -210,7 +210,6 @@ const Records: React.FC = () => {
 
   // Open Edit Modal
   const openEditModal = (record: Record) => {
-    console.log("Editing Record:", record); // Debugging log
     setEditingRecord(record);
     setNewRecord({
       // Match metric name to ID

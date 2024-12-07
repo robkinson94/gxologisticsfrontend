@@ -43,7 +43,6 @@ const Teams: React.FC = () => {
     const fetchTeams = async () => {
       try {
         const { data } = await API.get("/teams/");
-        console.log("Fetched Teams Data:", data); // Debug fetched data
         setTeams(data);
       } catch (err) {
         setError("Failed to load teams.");
@@ -171,8 +170,6 @@ const Teams: React.FC = () => {
   };
 
   // Debugging: Ensure teams array is correctly populated
-  console.log("Teams State:", teams);
-
   return (
     <div>
       <NavBar />

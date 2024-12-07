@@ -25,7 +25,6 @@ API.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    // Check for 401 response and ensure it's not a public endpoint
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
@@ -36,7 +35,6 @@ API.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          // Attempt to refresh the access token
           const { data } = await axios.post(
             "https://gxologistics-metrics-tracker.onrender.com/api/token/refresh/",
             {
@@ -48,9 +46,11 @@ API.interceptors.response.use(
           return axios(originalRequest);
         } catch (err) {
           console.error("Refresh token failed!", err);
-          // Clear tokens if refresh fails
           localStorage.removeItem("access");
           localStorage.removeItem("refresh");
+
+          // Optionally redirect the user to the login page
+          window.location.href = "/login";
         }
       }
     }
@@ -58,5 +58,6 @@ API.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 
 export default API;

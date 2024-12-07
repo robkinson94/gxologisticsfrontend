@@ -44,8 +44,6 @@ const Metrics: React.FC = () => {
     const fetchMetrics = async () => {
       try {
         const { data } = await API.get("/metrics/");
-
-        console.log("Fetched Metrics Data:", data); // Debug fetched data
         setMetrics(data);
       } catch (err) {
         setError("Failed to load metrics.");
@@ -176,7 +174,6 @@ const Metrics: React.FC = () => {
   };
 
   // Debugging: Ensure metrics array is correctly populated
-  console.log("Metrics State:", metrics);
 
   return (
     <div>
