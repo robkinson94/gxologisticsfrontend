@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import API from "../api"; // Import your Axios instance
+import { AxiosError } from "axios"; // Import AxiosError
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -17,22 +18,28 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         await API.get("/token/verify/"); // Replace with an appropriate API endpoint
         setIsAuthenticated(true);
       } catch (error) {
-        if (error.response?.status === 401) {
-          console.warn("Access token invalid or expired. Attempting refresh...");
-          try {
-            // Refresh the token via Axios interceptors
-            await API.post("/token/refresh/", {
-              refresh: localStorage.getItem("refresh"),
-            });
-            setIsAuthenticated(true);
-          } catch (refreshError) {
-            console.error("Token refresh failed:", refreshError);
-            localStorage.removeItem("access");
-            localStorage.removeItem("refresh");
+        // Type guard for AxiosError
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            console.warn("Access token invalid or expired. Attempting refresh...");
+            try {
+              // Refresh the token via Axios interceptors
+              await API.post("/token/refresh/", {
+                refresh: localStorage.getItem("refresh"),
+              });
+              setIsAuthenticated(true);
+            } catch (refreshError) {
+              console.error("Token refresh failed:", refreshError);
+              localStorage.removeItem("access");
+              localStorage.removeItem("refresh");
+              setIsAuthenticated(false);
+            }
+          } else {
+            console.error("Unexpected error during token verification:", error);
             setIsAuthenticated(false);
           }
         } else {
-          console.error("Unexpected error during token verification:", error);
+          console.error("Unexpected non-Axios error:", error);
           setIsAuthenticated(false);
         }
       }
