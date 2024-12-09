@@ -26,38 +26,44 @@ API.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      error.response?.status === 401 &&
-      !originalRequest._retry &&
-      !publicEndpoints.some((endpoint) => originalRequest.url?.includes(endpoint))
+      error.response?.status === 401 && // If the error is due to token expiration
+      !originalRequest._retry && // Prevent infinite retry loops
+      !publicEndpoints.some((endpoint) => originalRequest.url?.includes(endpoint)) // Don't retry for public endpoints
     ) {
-      originalRequest._retry = true;
+      originalRequest._retry = true; // Mark the request as retried
       const refreshToken = localStorage.getItem("refresh");
 
       if (refreshToken) {
         try {
+          // Attempt to refresh the token
           const { data } = await axios.post(
             "https://gxologistics-metrics-tracker.onrender.com/api/token/refresh/",
-            {
-              refresh: refreshToken,
-            }
+            { refresh: refreshToken }
           );
+
+          // Store the new access token
           localStorage.setItem("access", data.access);
+
+          // Update the Authorization header and retry the original request
           originalRequest.headers.Authorization = `Bearer ${data.access}`;
-          return axios(originalRequest);
+          return API(originalRequest);
         } catch (err) {
-          console.error("Refresh token failed!", err);
+          console.error("Token refresh failed:", err);
+
+          // Clear tokens and redirect to login
           localStorage.removeItem("access");
           localStorage.removeItem("refresh");
-
-          // Optionally redirect the user to the login page
           window.location.href = "/login";
         }
+      } else {
+        console.warn("No refresh token available, redirecting to login.");
+        window.location.href = "/login";
       }
     }
 
+    // Reject the original error if not handled
     return Promise.reject(error);
   }
 );
-
 
 export default API;
