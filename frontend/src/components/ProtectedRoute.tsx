@@ -6,57 +6,36 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-// Utility to decode a JWT token
-const decodeToken = (token: string) => {
-  try {
-    const base64Payload = token.split(".")[1];
-    return JSON.parse(atob(base64Payload));
-  } catch (error) {
-    console.error("Failed to decode token:", error);
-    return null;
-  }
-};
-
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true); // Loading state for authentication check
   const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
 
   useEffect(() => {
     const verifyToken = async () => {
-      const accessToken = localStorage.getItem("access");
-      const refreshToken = localStorage.getItem("refresh");
-
-      if (!accessToken || !refreshToken) {
-        console.warn("No tokens found.");
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        return;
-      }
-
-      const decodedToken = decodeToken(accessToken);
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      if (decodedToken?.exp && decodedToken.exp < currentTime) {
-        console.warn("Access token expired. Attempting refresh...");
-        try {
-          // Use your Axios instance to refresh the token
-          const response = await API.post("/token/refresh/", { refresh: refreshToken });
-          const newAccessToken = response.data.access;
-
-          // Save the new token in localStorage
-          localStorage.setItem("access", newAccessToken);
-          setIsAuthenticated(true);
-        } catch (error) {
-          console.error("Token refresh failed:", error);
-          localStorage.removeItem("access");
-          localStorage.removeItem("refresh");
+      try {
+        // Make a test API call to verify token validity
+        await API.get("/token/verify/"); // Replace with an appropriate API endpoint
+        setIsAuthenticated(true);
+      } catch (error) {
+        if (error.response?.status === 401) {
+          console.warn("Access token invalid or expired. Attempting refresh...");
+          try {
+            // Refresh the token via Axios interceptors
+            await API.post("/token/refresh/", {
+              refresh: localStorage.getItem("refresh"),
+            });
+            setIsAuthenticated(true);
+          } catch (refreshError) {
+            console.error("Token refresh failed:", refreshError);
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
+            setIsAuthenticated(false);
+          }
+        } else {
+          console.error("Unexpected error during token verification:", error);
           setIsAuthenticated(false);
         }
-      } else {
-        console.info("Access token is valid.");
-        setIsAuthenticated(true);
       }
-
       setIsLoading(false); // Authentication check is complete
     };
 
