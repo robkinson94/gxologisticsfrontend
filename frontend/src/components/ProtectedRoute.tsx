@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-import API from "./api"; // Import your Axios instance
+import API from "../api"; // Import your Axios instance
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
