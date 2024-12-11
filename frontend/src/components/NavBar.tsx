@@ -11,30 +11,30 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-blue-500 text-white">
+    <nav className="bg-[#2E3033] text-white">
       <div className="container mx-auto flex flex-wrap items-center justify-between p-4">
         {/* Logo */}
         <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-bold">GXO Logistics</h1>
+          <h1 className="text-xl font-bold text-[#f0f0f0]">GXO Logistics</h1>
         </div>
 
         {/* Menu for larger screens */}
         <div className="hidden md:flex space-x-4">
-          <Link to="/dashboard" className="hover:underline">
+          <Link to="/dashboard" className="text-[#f0f0f0] hover:underline">
             Dashboard
           </Link>
-          <Link to="/metrics" className="hover:underline">
+          <Link to="/metrics" className="text-[#f0f0f0] hover:underline">
             Metrics
           </Link>
-          <Link to="/records" className="hover:underline">
+          <Link to="/records" className="text-[#f0f0f0] hover:underline">
             Records
           </Link>
-          <Link to="/teams" className="hover:underline">
+          <Link to="/teams" className="text-[#f0f0f0] hover:underline">
             Teams
           </Link>
           <button
             onClick={handleLogout}
-            className="bg-red-600 px-4 py-2 rounded hover:bg-red-700 transition duration-300"
+            className="bg-[#ff3a00] px-4 py-2 rounded hover:bg-[#ff3a77] transition duration-300 text-[#f0f0f0]"
           >
             Logout
           </button>
@@ -56,23 +56,23 @@ const NavBar: React.FC = () => {
       {/* Mobile Menu */}
       <div
         id="mobile-menu"
-        className="hidden md:hidden bg-blue-400 text-white px-4 py-2"
+        className="hidden md:hidden bg-[#2E3033] text-white px-4 py-2"
       >
-        <Link to="/dashboard" className="block py-2 hover:bg-blue-600 rounded">
+        <Link to="/dashboard" className="block py-2 hover:bg-[#1c1c1c] rounded">
           Dashboard
         </Link>
-        <Link to="/metrics" className="block py-2 hover:bg-blue-600 rounded">
+        <Link to="/metrics" className="block py-2 hover:bg-[#1c1c1c] rounded">
           Metrics
         </Link>
-        <Link to="/records" className="block py-2 hover:bg-blue-600 rounded">
+        <Link to="/records" className="block py-2 hover:bg-[#1c1c1c] rounded">
           Records
         </Link>
-        <Link to="/teams" className="block py-2 hover:bg-blue-600 rounded">
+        <Link to="/teams" className="block py-2 hover:bg-[#1c1c1c] rounded">
           Teams
         </Link>
         <button
           onClick={handleLogout}
-          className="block w-full text-left bg-red-600 py-2 mt-2 rounded hover:bg-red-700"
+          className="block w-full text-left bg-[#ff3a00] py-2 mt-2 rounded hover:bg-[#ff3a77]"
         >
           Logout
         </button>
