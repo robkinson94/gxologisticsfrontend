@@ -228,7 +228,7 @@ const Summary: React.FC = () => {
                     <Line
                       type="monotone"
                       dataKey="total_value"
-                      stroke="#82ca9d"
+                      stroke="#ff3a00"
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -248,8 +248,8 @@ const Summary: React.FC = () => {
                     <Area
                       type="monotone"
                       dataKey="total_value"
-                      fill="#8884d8"
-                      stroke="#8884d8"
+                      fill="#ff3a00"
+                      stroke="#fff3a00"
                     />
                   </AreaChart>
                 </ResponsiveContainer>
