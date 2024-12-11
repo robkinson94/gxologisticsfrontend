@@ -84,7 +84,7 @@ const Register: React.FC = () => {
   );
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-green-400 to-blue-500">
+    <div className="flex items-center justify-center h-screen bg-gradient-to-r from-[#1c1c1c] to-[#2e3033]">
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg"
@@ -153,7 +153,7 @@ const Register: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 shadow-md transition duration-300"
+              className="w-full bg-[#ff3a00] text-white py-2 rounded-lg hover:bg-blue-700 shadow-md transition duration-300"
             >
               Register
             </button>
