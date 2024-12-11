@@ -130,7 +130,7 @@ const Summary: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="bg-[#fff3a00] text-[#f0f0f0] shadow rounded p-6">
+              <div className="bg-[#ff3a00] text-[#f0f0f0] shadow rounded p-6">
                 <h3 className="text-lg font-bold">Total Metrics</h3>
                 <p className="text-3xl font-semibold">{totals.totalMetrics}</p>
               </div>
