@@ -15,7 +15,7 @@ const NavBar: React.FC = () => {
       <div className="container mx-auto flex flex-wrap items-center justify-between p-4">
         {/* Logo */}
         <div className="flex items-center space-x-4">
-          <h1 className="text-xl font-bold text-[#f0f0f0]">GXO Logistics</h1>
+          <h1 className="text-xl font-bold text-[#f0f0f0]">GXO LOGISTICS</h1>
         </div>
 
         {/* Menu for larger screens */}
