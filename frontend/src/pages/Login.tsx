@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-r from-[#1C1C1C] to-[#2E3033]">
       <div className="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
         <h2 className="text-3xl font-bold text-gray-800 text-center">
           Welcome Back!
@@ -75,7 +75,7 @@ const Login: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
+            className="w-full px-4 py-2 text-white bg-[#ff3a00] rounded-lg shadow-md hover:bg-indigo-700 transition duration-300"
             disabled={loading} // Disable button when loading
           >
             {loading ? (
