@@ -19,7 +19,7 @@ import {
 import API from "../api";
 import NavBar from "../components/NavBar";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#845EC2"];
+const COLORS = ["#ff3a00", "#2e3033", "#f0f0f0", "#1c1c1c", "#e0e0e0"];
 
 interface SummaryData {
   metricTeamData: {
@@ -130,15 +130,15 @@ const Summary: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="bg-blue-500 text-white shadow rounded p-6">
+              <div className="bg-[#fff3a00] text-[#f0f0f0] shadow rounded p-6">
                 <h3 className="text-lg font-bold">Total Metrics</h3>
                 <p className="text-3xl font-semibold">{totals.totalMetrics}</p>
               </div>
-              <div className="bg-green-500 text-white shadow rounded p-6">
+              <div className="bg-[#2e3033] text-[#f0f0f0] shadow rounded p-6">
                 <h3 className="text-lg font-bold">Total Teams</h3>
                 <p className="text-3xl font-semibold">{totals.totalTeams}</p>
               </div>
-              <div className="bg-purple-500 text-white shadow rounded p-6">
+              <div className="bg-[#f0f0f0] text-[#2e3033] shadow rounded p-6">
                 <h3 className="text-lg font-bold">Total Records</h3>
                 <p className="text-3xl font-semibold">{totals.totalRecords}</p>
               </div>
