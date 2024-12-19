@@ -1,43 +1,34 @@
-import axios from "axios";
 
-const API = axios.create({
-  baseURL: "https://gxologistics-metrics-tracker.onrender.com/api",
+import axios, { AxiosError } from 'axios';
+
+// Create a single Axios instance for your app
+const api = axios.create({
+  baseURL: 'https://gxologistics-metrics-tracker.onrender.com/api', // adjust to your backend URL
+  withCredentials: true,           // crucial for HttpOnly cookies and CSRF
 });
 
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-API.interceptors.response.use(
+// Interceptor: automatically refresh token on 401
+api.interceptors.response.use(
   (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true; // Prevent infinite retry loops
-      const refreshToken = localStorage.getItem("refresh");
-
-      if (refreshToken) {
-        try {
-          const { data } = await API.post("/token/refresh/", { refresh: refreshToken });
-          localStorage.setItem("access", data.access); // Save the new token
-          originalRequest.headers.Authorization = `Bearer ${data.access}`;
-          return API(originalRequest); // Retry the original request
-        } catch (err) {
-          console.error("Token refresh failed:", err);
-          localStorage.removeItem("access");
-          localStorage.removeItem("refresh");
-          window.location.href = "/login"; // Redirect user to login
+  async (error: AxiosError) => {
+    if (error.response && error.response.status === 401) {
+      // Attempt refresh token
+      try {
+        console.log('api.ts: 401 received, attempting refresh...');
+        await api.post('/api/token/refresh/', {}); 
+        // If refresh succeeds, retry original request
+        if (error.config) {
+          return api.request(error.config);
         }
+      } catch (refreshError) {
+        console.error('api.ts: Token refresh failed. Logging out.');
+        // Optional: dispatch a logout or redirect to login
+        return Promise.reject(refreshError);
       }
     }
-
-    return Promise.reject(error); // Reject all other errors
+    // If it's not a 401 or refresh fails, propagate the error
+    return Promise.reject(error);
   }
 );
 
-export default API;
+export default api;

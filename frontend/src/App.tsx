@@ -13,6 +13,7 @@ import Records from "./pages/Records";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Register from "./pages/Registration";
 import EmailVerified from "./components/EmailVerfied";
+import PublicRoute from "./components/PublicRoute";
 
 // Define the type for JWT payload
 interface JwtPayload {
@@ -51,11 +52,27 @@ const App: React.FC = () => {
         {/* Redirect logged-in users away from login and registration pages */}
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login />}
+          element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            )
+          }
         />
         <Route
           path="/register"
-          element={isLoggedIn ? <Navigate to="/dashboard" /> : <Register />}
+          element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <PublicRoute>
+                <Register />
+              </PublicRoute>
+            )
+          }
         />
         <Route path="/email-verify" element={<EmailVerified />} />
         <Route
