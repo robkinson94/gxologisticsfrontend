@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import API from "../api";
+import { loginUser } from "../auth";
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Loading state
@@ -15,17 +15,10 @@ const Login: React.FC = () => {
     setError(""); // Clear error
 
     try {
-      const { data } = await API.post("/token/", {
-        username: email,
-        password: password,
-      });
-      localStorage.setItem("access", data.access);
-      localStorage.setItem("refresh", data.refresh);
-      navigate("/dashboard"); // Redirect to dashboard
-    } catch (err) {
-      setError("Invalid email or password");
-    } finally {
-      setLoading(false); // Stop spinner
+      await loginUser(username, password);
+      navigate("/dashboard");
+    } catch (err: any) {
+      setError(err.message || "Login failed");
     }
   };
 
@@ -51,8 +44,8 @@ const Login: React.FC = () => {
             <input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-2 mt-2 border rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300 focus:border-indigo-500"
               required
             />
