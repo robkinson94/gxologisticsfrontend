@@ -1,29 +1,24 @@
+// Login.tsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import API from "../api"; // Ensure this is correctly configured
+import { useAuth } from "../contexts/AuthContext"; // Adjust the path as necessary
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState(""); // Ensure whether to use email or username
+  const [email, setEmail] = useState(""); // If your backend uses email for username
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); // Loading state for the button
   const navigate = useNavigate();
+  const { login } = useAuth(); // Destructure the login function from AuthContext
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Login initiated");
     setLoading(true); // Start spinner
     setError(""); // Clear previous errors
 
     try {
-      const { data } = await API.post("/token/", {
-        username: email, // Change to 'email' if your API expects it
-        password: password,
-      });
-      console.log("Login successful:", data);
-      localStorage.setItem("access", data.access);
-      localStorage.setItem("refresh", data.refresh);
-      navigate("/dashboard"); // Redirect to dashboard
+      await login(email, password); // Use AuthContext's login function
+      navigate("/dashboard"); // Redirect to dashboard upon successful login
     } catch (err: any) {
       console.error("Login error:", err);
       if (err.response && err.response.data) {
@@ -33,7 +28,6 @@ const Login: React.FC = () => {
       }
     } finally {
       setLoading(false); // Stop spinner
-      console.log("Loading state set to false");
     }
   };
 
