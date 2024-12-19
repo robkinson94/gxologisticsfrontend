@@ -1,10 +1,10 @@
 // Login.tsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../components/AuthContext"; // Adjust the path as necessary
+import { useAuth } from "../contexts/AuthContext"; // Adjust the path as necessary
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState(""); // If your backend uses email for username
+  const [email, setEmail] = useState(""); // Ensure whether to use email or username
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Loading state for the button
@@ -13,21 +13,27 @@ const Login: React.FC = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("Login form submitted");
     setLoading(true); // Start spinner
     setError(""); // Clear previous errors
 
     try {
+      console.log("Attempting to log in with:", { email, password });
       await login(email, password); // Use AuthContext's login function
+      console.log("Login successful, navigating to dashboard");
       navigate("/dashboard"); // Redirect to dashboard upon successful login
     } catch (err: any) {
-      console.error("Login error:", err);
+      console.error("Login failed:", err);
       if (err.response && err.response.data) {
         setError(err.response.data.detail || "Invalid email or password");
+        console.log("Error detail:", err.response.data.detail);
       } else {
         setError("An unexpected error occurred");
+        console.log("Unexpected error:", err);
       }
     } finally {
       setLoading(false); // Stop spinner
+      console.log("Loading state set to false");
     }
   };
 
