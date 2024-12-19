@@ -1,12 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { logoutUser } from "../auth";
 
 const NavBar: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logoutUser();
     navigate("/login");
   };
 

@@ -1,20 +1,23 @@
-// src/components/PrivateRoute.tsx
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuthCheck } from "../useAuthChecks";
+import { useAuth } from "./AuthContext";
 
-function PrivateRoute({ children }: { children: React.ReactNode }) {
-  const isAuthenticated = useAuthCheck();
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+}
 
-  if (isAuthenticated === null) {
-    return <div>Checking auth status...</div>; // loading indicator
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading spinner while checking authentication
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" />;
   }
 
   return <>{children}</>;
-}
+};
 
-export default PrivateRoute;
+export default ProtectedRoute;
