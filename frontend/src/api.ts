@@ -15,7 +15,7 @@ api.interceptors.response.use(
       // Attempt refresh token
       try {
         console.log('api.ts: 401 received, attempting refresh...');
-        await api.post('/api/token/refresh/', {}); 
+        await api.post('token/refresh/', {}); 
         // If refresh succeeds, retry original request
         if (error.config) {
           return api.request(error.config);
