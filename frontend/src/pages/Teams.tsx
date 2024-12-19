@@ -42,7 +42,7 @@ const Teams: React.FC = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const { data } = await API.get("/teams/");
+        const { data } = await API.get("teams/");
         setTeams(data);
       } catch (err) {
         setError("Failed to load teams.");
@@ -61,7 +61,7 @@ const Teams: React.FC = () => {
       // Update existing team
       try {
         const { data, status } = await API.put(
-          `/teams/${editingTeam.id}/`,
+          `teams/${editingTeam.id}/`,
           newTeam
         );
         if (status === 200 || status === 201) {
@@ -83,7 +83,7 @@ const Teams: React.FC = () => {
     } else {
       // Add new team
       try {
-        const { data, status } = await API.post("/teams/", newTeam);
+        const { data, status } = await API.post("teams/", newTeam);
         if (status === 200 || status === 201) {
           setNotification({
             message: "Team added successfully",
@@ -106,7 +106,7 @@ const Teams: React.FC = () => {
   const handleDeleteTeam = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this team?")) {
       try {
-        const { status } = await API.delete(`/teams/${id}/`);
+        const { status } = await API.delete(`teams/${id}/`);
         if (status === 200 || status === 204) {
           setNotification({
             message: "Team deleted successfully",

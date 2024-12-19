@@ -43,7 +43,7 @@ const Metrics: React.FC = () => {
   useEffect(() => {
     const fetchMetrics = async () => {
       try {
-        const { data } = await API.get("/metrics/");
+        const { data } = await API.get("metrics/");
         setMetrics(data);
       } catch (err) {
         setError("Failed to load metrics.");
@@ -99,7 +99,7 @@ const Metrics: React.FC = () => {
     } else {
       // Add new metric
       try {
-        const { data, status } = await API.post("/metrics/", newMetric);
+        const { data, status } = await API.post("metrics/", newMetric);
         if (status === 200 || status === 201) {
           setNotification({
             message: "Metric added successfully",
@@ -135,7 +135,7 @@ const Metrics: React.FC = () => {
   const handleDeleteMetric = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this metric?")) {
       try {
-        const { status } = await API.delete(`/metrics/${id}/`);
+        const { status } = await API.delete(`metrics/${id}/`);
         if (status === 200 || status === 204) {
           setNotification({
             message: "Metric deleted successfully",

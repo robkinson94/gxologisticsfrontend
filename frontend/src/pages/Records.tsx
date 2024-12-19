@@ -67,7 +67,7 @@ const Records: React.FC = () => {
   useEffect(() => {
     const fetchRecords = async () => {
       try {
-        const { data } = await API.get("/records/");
+        const { data } = await API.get("records/");
         setRecords(data);
       } catch (err) {
         setError("Failed to load records.");
@@ -77,7 +77,7 @@ const Records: React.FC = () => {
 
     const fetchMetrics = async () => {
       try {
-        const { data } = await API.get("/metrics/");
+        const { data } = await API.get("metrics/");
         setMetrics(data);
       } catch (err) {
         setError("Failed to load metrics.");
@@ -86,7 +86,7 @@ const Records: React.FC = () => {
 
     const fetchTeams = async () => {
       try {
-        const { data } = await API.get("/teams/");
+        const { data } = await API.get("teams/");
         setTeams(data);
       } catch (err) {
         setError("Failed to load teams.");
@@ -113,7 +113,7 @@ const Records: React.FC = () => {
     if (isEditing && editingRecord) {
       try {
         const { data, status } = await API.put(
-          `/records/${editingRecord.id}/`,
+          `records/${editingRecord.id}/`,
           newRecord
         );
         if (status === 200 || status === 201) {
@@ -147,7 +147,7 @@ const Records: React.FC = () => {
       }
     } else {
       try {
-        const { data, status } = await API.post("/records/", newRecord);
+        const { data, status } = await API.post("records/", newRecord);
         if (status === 200 || status === 201) {
           setNotification({
             message: "Record added successfully",
@@ -182,7 +182,7 @@ const Records: React.FC = () => {
   const handleDeleteRecord = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this record?")) {
       try {
-        const { status } = await API.delete(`/records/${id}/`);
+        const { status } = await API.delete(`records/${id}/`);
         if (status === 200 || status === 204) {
           setNotification({
             message: "Record deleted successfully",

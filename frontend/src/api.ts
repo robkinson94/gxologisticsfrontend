@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 
 // Create a single Axios instance for your app
 const api = axios.create({
-  baseURL: 'https://gxologistics-metrics-tracker.onrender.com/', // adjust to your backend URL
+  baseURL: 'https://gxologistics-metrics-tracker.onrender.com/api/', // adjust to your backend URL
   withCredentials: true,           // crucial for HttpOnly cookies and CSRF
 });
 

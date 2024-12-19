@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import API from "../api";
+import api from "../api";
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ const Register: React.FC = () => {
     }
 
     try {
-      const { data } = await API.post("/register/", {
+      const { data } = await api.post("register/", {
         username: formData.email, // Automatically set username to email
         email: formData.email,
         password: formData.password,

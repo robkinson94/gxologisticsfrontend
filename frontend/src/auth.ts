@@ -5,7 +5,7 @@ import api from './api';
  * The server sets the csrftoken cookie via a GET request to /api/csrf/.
  */
 export async function getCsrfToken(): Promise<void> {
-  const response = await api.get('/api/csrf/');
+  const response = await api.get('csrf/');
   if (response.status !== 200) {
     throw new Error('Failed to get CSRF token');
   }
@@ -37,7 +37,7 @@ export async function loginUser(username: string, password: string): Promise<voi
 
   try {
     const csrfToken = getCookie('csrftoken');  // if needed for Django's CSRF check
-    const response = await api.post<LoginError>('/api/token/', {
+    const response = await api.post<LoginError>('token/', {
       username,
       password,
     }, {
@@ -59,7 +59,7 @@ export async function loginUser(username: string, password: string): Promise<voi
  */
 export async function logoutUser(): Promise<void> {
   const csrfToken = getCookie('csrftoken');
-  await api.post('/api/logout/', {}, {
+  await api.post('logout/', {}, {
     headers: {
       'X-CSRFToken': csrfToken,
     }
@@ -72,7 +72,7 @@ export async function logoutUser(): Promise<void> {
  */
 export async function refreshTokenManually(): Promise<void> {
   const csrfToken = getCookie('csrftoken');
-  await api.post('/api/token/refresh/', {}, {
+  await api.post('token/refresh/', {}, {
     headers: {
       'X-CSRFToken': csrfToken,
     }
@@ -92,7 +92,7 @@ interface MeResponse {
  */
 export async function fetchUserProfile(): Promise<MeResponse> {
   const csrfToken = getCookie('csrftoken');
-  const response = await api.get<MeResponse>('/api/me/', {
+  const response = await api.get<MeResponse>('me/', {
     headers: {
       'X-CSRFToken': csrfToken,
     }

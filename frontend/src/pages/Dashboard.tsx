@@ -49,7 +49,7 @@ const Summary: React.FC = () => {
   useEffect(() => {
     const fetchSummaryData = async () => {
       try {
-        const { data } = await API.get("/summary/");
+        const { data } = await API.get("summary/");
         setSummaryData(data);
 
         // Compute totals dynamically
