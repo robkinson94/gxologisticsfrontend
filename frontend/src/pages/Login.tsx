@@ -1,7 +1,7 @@
 // Login.tsx
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // Adjust the path as necessary
+import { useAuth } from "../components/AuthContext"; // Adjust the path as necessary
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState(""); // Ensure whether to use email or username
