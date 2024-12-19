@@ -1,3 +1,4 @@
+// AuthContext.tsx
 import React, {
   createContext,
   useContext,
@@ -47,7 +48,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = async (username: string, password: string) => {
     try {
       const response = await api.post<{ access: string; refresh: string }>(
-        "/login/",
+        "/login/", // Ensure this endpoint is correct
         { username, password }
       );
       const { access, refresh } = response.data;
